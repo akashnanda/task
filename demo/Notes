@@ -1,11 +1,9 @@
 
 http://localhost:8080/api/accounts
 
-http://localhost:8080/api/addresses?address=12
+http://localhost:8080/api/creditcheck?creditscore=22
 
-http://localhost:8080/api/creditcheck?username=akash
-
-
+http://localhost:8080/api/addresses?address=No.35,Indra nagar&stateandcountry=Tamil&pincode=603203
 
 
 
@@ -36,3 +34,19 @@ http://localhost:8080/api/creditcheck?username=akash
 		rtn.put("Account id", uniqueID);
 		return rtn;
     }
+    
+    
+    
+    
+    
+	
+===================================address==============================
+
+
+@GetMapping("addresses")
+	@ResponseBody
+	public boolean validateAddress(@RequestParam String address,@RequestParam String stateandcountry,@RequestParam String pincode) {
+		if(address=="" || (address.length() < 10) || stateandcountry=="" || stateandcountry.length()<3 || pincode=="" || pincode.length()<6)
+			return false;
+		return true;
+	}
