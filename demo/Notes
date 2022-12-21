@@ -1,0 +1,9 @@
+@GetMapping("creditcheck")
+	@ResponseBody
+	public Map<String, Object> checkCredit(@RequestParam String username) {
+		Map<String, Object> rtn = new LinkedHashMap<>();
+
+	    rtn.put("creditScore", "100");
+
+	    return rtn;
+	}
