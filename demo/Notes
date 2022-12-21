@@ -1,9 +1,14 @@
 @GetMapping("creditcheck")
 	@ResponseBody
 	public Map<String, Object> checkCredit(@RequestParam String username) {
-		Map<String, Object> rtn = new LinkedHashMap<>();
+ 		Random random = new Random();
 
-	    rtn.put("creditScore", "100");
+		Map<String, Object> rtn = new LinkedHashMap<>();
+		int score = random.nextInt(1000);
+		if(score>500)
+			rtn.put("creditScore", "Above 500");
+		else
+			rtn.put("creditScore", "Below 500");
 
 	    return rtn;
 	}
