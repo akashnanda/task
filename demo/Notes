@@ -31,7 +31,8 @@ http://localhost:8080/api/creditcheck?username=akash
 
 @PostMapping("accounts")
     public Map<String, Object> process(@RequestBody UserDto user) {
+		String uniqueID = UUID.randomUUID().toString();
 		Map<String, Object> rtn = new LinkedHashMap<>();
-		rtn.put("Account id", user.getfName());
+		rtn.put("Account id", uniqueID);
 		return rtn;
     }
