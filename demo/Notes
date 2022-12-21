@@ -1,3 +1,4 @@
+===================================creditcheck==============================
 @GetMapping("creditcheck")
 	@ResponseBody
 	public Map<String, Object> checkCredit(@RequestParam String username) {
@@ -12,3 +13,14 @@
 
 	    return rtn;
 	}
+	
+	
+	
+===================================account==============================
+
+@PostMapping("accounts")
+    public Map<String, Object> process(@RequestBody UserDto user) {
+		Map<String, Object> rtn = new LinkedHashMap<>();
+		rtn.put("Account id", user.getfName());
+		return rtn;
+    }
