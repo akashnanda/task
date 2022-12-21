@@ -1,3 +1,14 @@
+
+http://localhost:8080/api/accounts
+
+http://localhost:8080/api/addresses?address=12
+
+http://localhost:8080/api/creditcheck?username=akash
+
+
+
+
+
 ===================================creditcheck==============================
 @GetMapping("creditcheck")
 	@ResponseBody
