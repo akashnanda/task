@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;  
 
 @RestController
 @RequestMapping(path = "/api", produces = "application/json")
@@ -31,7 +34,7 @@ public class Add {
 	@GetMapping("addresses")
 	@ResponseBody
 	public Map<String, Object> validateAddress(@RequestParam String address, @RequestParam String stateandcountry,
-			@RequestParam String pincode) {
+			@RequestParam String pincode){
 		Map<String, Object> rtn = new LinkedHashMap<>();
 		int flag = 0;
 		if (address.equals(user1.getAddress()) || address.equals(user2.getAddress())
@@ -46,7 +49,7 @@ public class Add {
 		if (flag == 1)
 			rtn.put("Address", "Validated");
 		else
-			rtn.put("Address", "Validation Failed");
+			throw new UserNotFoundException("ADDRESS VALIDATION FAILED"); 
 		return rtn;
 
 	}
@@ -62,7 +65,7 @@ public class Add {
 		} else if (username.toLowerCase().equals(user3.getfName())) {
 			rtn.put("Credit Score", user3.getCreditScore());
 		} else {
-			rtn.put("Credit Score", "User not found");
+			throw new UserNotFoundException("User Not Found"); 
 		}
 
 		return rtn;
@@ -86,4 +89,18 @@ public class Add {
 	public Map<String, Object> getAccount() {
 		return rtn1;
 	}
+	
+	
 }
+
+@ResponseStatus(HttpStatus.NOT_FOUND)  
+class UserNotFoundException extends RuntimeException   
+{  
+public UserNotFoundException(String message)   
+{  
+super(message);  
+}  
+}
+
+  
+
