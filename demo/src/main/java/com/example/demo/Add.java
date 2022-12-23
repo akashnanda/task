@@ -21,7 +21,7 @@ import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping(path = "/api", produces = "application/json")
-@CrossOrigin(origins = "http://localhost:8080/")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class Add {
 
 	UserDto user1 = new UserDto("aaa", "No.35,Indra Nagar,Kattankulathur", "555", "aaa@gmail.com", "savings", "male",
@@ -58,11 +58,11 @@ public class Add {
 	@ResponseBody
 	public Map<String, Object> checkCredit(@RequestParam String username) {
 		Map<String, Object> rtn = new LinkedHashMap<>();
-		if (username.toLowerCase().equals(user1.getfName())) {
+		if (username.toLowerCase().equals(user1.getuserName())) {
 			rtn.put("Credit Score", user1.getCreditScore());
-		} else if (username.toLowerCase().equals(user2.getfName())) {
+		} else if (username.toLowerCase().equals(user2.getuserName())) {
 			rtn.put("Credit Score", user2.getCreditScore());
-		} else if (username.toLowerCase().equals(user3.getfName())) {
+		} else if (username.toLowerCase().equals(user3.getuserName())) {
 			rtn.put("Credit Score", user3.getCreditScore());
 		} else {
 			throw new UserNotFoundException("User Not Found"); 

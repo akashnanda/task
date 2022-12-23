@@ -6,7 +6,7 @@ public class UserDto {
 	private String address;
 	private String creditScore;
 	private String email;
-	private String fName;
+	private String userName;
 	private String gender;
 	private String number;
 	private String pincode;
@@ -16,14 +16,14 @@ public class UserDto {
 		super();
 	}
 
-	public UserDto(String fName, String address, String creditScore, String email, String accountType, String gender,
+	public UserDto(String userName, String address, String creditScore, String email, String accountType, String gender,
 			String number, String pincode, String stateAndCountry) {
 		super();
 		this.accountType = accountType;
 		this.address = address;
 		this.creditScore = creditScore;
 		this.email = email;
-		this.fName = fName;
+		this.userName = userName;
 		this.gender = gender;
 		this.number = number;
 		this.pincode = pincode;
@@ -62,12 +62,12 @@ public class UserDto {
 		this.email = email;
 	}
 
-	public String getfName() {
-		return fName;
+	public String getuserName() {
+		return userName;
 	}
 
-	public void setfName(String fName) {
-		this.fName = fName;
+	public void setuserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getGender() {
