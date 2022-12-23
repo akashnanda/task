@@ -24,7 +24,7 @@ import org.springframework.http.HttpStatus;
 @CrossOrigin(origins = "http://localhost:4200/")
 public class Add {
 
-	UserDto user1 = new UserDto("aaa", "No.35,Indra Nagar,Kattankulathur", "555", "aaa@gmail.com", "savings", "male",
+	UserDto user1 = new UserDto("aaa", "No.35,Indra Nagar,Kattankulathur", "333", "aaa@gmail.com", "savings", "male",
 			"9876543212", "603203", "TN,India");
 	UserDto user2 = new UserDto("bbb", "No.45,Indra Nagar,Kattankulathur", "666", "bbb@gmail.com", "savings", "female",
 			"6789065432", "603204", "MH,India");
@@ -49,7 +49,7 @@ public class Add {
 		if (flag == 1)
 			rtn.put("Address", "Validated");
 		else
-			throw new UserNotFoundException("ADDRESS VALIDATION FAILED"); 
+			throw new UserNotFoundException("Incorrect Address"); 
 		return rtn;
 
 	}
@@ -59,11 +59,14 @@ public class Add {
 	public Map<String, Object> checkCredit(@RequestParam String username) {
 		Map<String, Object> rtn = new LinkedHashMap<>();
 		if (username.toLowerCase().equals(user1.getuserName())) {
-			rtn.put("Credit Score", user1.getCreditScore());
+			String str = (Integer.parseInt(user1.getCreditScore())<500)?"Invalid Credit Score":"Valid Credit Score";
+			rtn.put("Credit Score", str);
 		} else if (username.toLowerCase().equals(user2.getuserName())) {
-			rtn.put("Credit Score", user2.getCreditScore());
+			String str = (Integer.parseInt(user2.getCreditScore())<500)?"Invalid Credit Score":"Valid Credit Score";
+			rtn.put("Credit Score", str);
 		} else if (username.toLowerCase().equals(user3.getuserName())) {
-			rtn.put("Credit Score", user3.getCreditScore());
+			String str = (Integer.parseInt(user3.getCreditScore())<500)?"Invalid Credit Score":"Valid Credit Score";
+			rtn.put("Credit Score", str);
 		} else {
 			throw new UserNotFoundException("User Not Found"); 
 		}
