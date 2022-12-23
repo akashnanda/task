@@ -1,0 +1,89 @@
+package com.example.demo;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping(path = "/api", produces = "application/json")
+@CrossOrigin(origins = "http://localhost:8080/")
+public class Add {
+
+	UserDto user1 = new UserDto("aaa", "No.35,Indra Nagar,Kattankulathur", "555", "aaa@gmail.com", "savings", "male",
+			"9876543212", "603203", "TN,India");
+	UserDto user2 = new UserDto("bbb", "No.45,Indra Nagar,Kattankulathur", "666", "bbb@gmail.com", "savings", "female",
+			"6789065432", "603204", "MH,India");
+	UserDto user3 = new UserDto("ccc", "No.55,Indra Nagar,Kattankulathur", "777", "ccc@gmail.com", "savings", "male",
+			"8907654567", "603205", "KA,India");
+
+	@GetMapping("addresses")
+	@ResponseBody
+	public Map<String, Object> validateAddress(@RequestParam String address, @RequestParam String stateandcountry,
+			@RequestParam String pincode) {
+		Map<String, Object> rtn = new LinkedHashMap<>();
+		int flag = 0;
+		if (address.equals(user1.getAddress()) || address.equals(user2.getAddress())
+				|| address.equals(user3.getAddress())) {
+			if (stateandcountry.equals(user1.getStateAndCountry()) || stateandcountry.equals(user2.getStateAndCountry())
+					|| stateandcountry.equals(user3.getStateAndCountry())) {
+				if (pincode.equals(user1.getPincode()) || pincode.equals(user2.getPincode())
+						|| pincode.equals(user3.getPincode()))
+					flag = 1;
+			}
+		}
+		if (flag == 1)
+			rtn.put("Address", "Validated");
+		else
+			rtn.put("Address", "Validation Failed");
+		return rtn;
+
+	}
+
+	@GetMapping("creditcheck")
+	@ResponseBody
+	public Map<String, Object> checkCredit(@RequestParam String username) {
+		Map<String, Object> rtn = new LinkedHashMap<>();
+		if (username.toLowerCase().equals(user1.getfName())) {
+			rtn.put("Credit Score", user1.getCreditScore());
+		} else if (username.toLowerCase().equals(user2.getfName())) {
+			rtn.put("Credit Score", user2.getCreditScore());
+		} else if (username.toLowerCase().equals(user3.getfName())) {
+			rtn.put("Credit Score", user3.getCreditScore());
+		} else {
+			rtn.put("Credit Score", "User not found");
+		}
+
+		return rtn;
+	}
+
+	Map<String, Object> rtn1 = new LinkedHashMap<>();
+
+	@PostMapping("accounts")
+	public Map<String, Object> process(@RequestBody UserDto user) {
+
+		rtn1.put("Account", user);
+		Map<String, Object> rtn = new LinkedHashMap<>();
+		String uniqueID = UUID.randomUUID().toString();
+		rtn.put("Account id", uniqueID);
+		System.out.println(user.getAddress());
+		return rtn;
+	}
+
+	@GetMapping("getaccount")
+	@ResponseBody
+	public Map<String, Object> getAccount() {
+		return rtn1;
+	}
+}
